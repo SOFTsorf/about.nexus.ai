@@ -3,16 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Über NexusAI - Eine neue Ära der Intelligenz</title>
+    <title>Über NexusAI - Die Zukunft der Assistenz</title>
     <style>
         :root {
             --accent-green: #00ff88;
             --bg-dark: #0b0b0c;
             --text-main: #e8e8e8;
             --border-glass: rgba(255, 255, 255, 0.1);
-            --header-bg: rgba(11, 11, 12, 0.8);
-            --pill-text-blue: #8ab4f8;
-            --glow-gradient: linear-gradient(135deg, #4285f4, #9c27b0);
+            --header-bg: rgba(11, 11, 12, 0.85);
+            --sidebar-bg: #111112;
+            --pill-blue: #8ab4f8;
         }
 
         body, html {
@@ -20,12 +20,12 @@
             padding: 0;
             background: var(--bg-dark);
             color: var(--text-main);
-            font-family: -apple-system, system-ui, sans-serif;
-            line-height: 1.6;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            scroll-behavior: smooth;
             overflow-x: hidden;
         }
 
-        /* --- HEADER (Wie in deiner App) --- */
+        /* --- HEADER --- */
         .header-bar {
             position: fixed;
             top: 0;
@@ -33,283 +33,352 @@
             width: 100%;
             height: 70px;
             background: var(--header-bg);
-            backdrop-filter: blur(30px);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
             border-bottom: 1px solid var(--border-glass);
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 0 40px;
-            z-index: 1000;
+            padding: 0 20px;
+            z-index: 2000;
             box-sizing: border-box;
         }
 
-        .header-logo {
+        .header-left {
             display: flex;
             align-items: center;
             gap: 12px;
-            font-weight: bold;
-            font-size: 20px;
-            letter-spacing: 1px;
         }
 
-        .avatar-placeholder {
-            height: 38px;
-            width: 38px;
+        .logo-round {
+            width: 40px;
+            height: 40px;
             border-radius: 50%;
+            object-fit: cover;
             border: 1px solid var(--border-glass);
-            background: url('https://lh3.googleusercontent.com/d/1AdC4w34gy3DUWdnocBj57TSzgRyXNafM') center/cover;
         }
 
-        /* --- HERO SECTION MIT PARTIKELN --- */
-        .hero {
-            position: relative;
-            height: 90vh;
+        .brand-name {
+            font-weight: 600;
+            font-size: 20px;
+            letter-spacing: -0.5px;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .cta-btn {
+            background: white;
+            color: black;
+            padding: 10px 20px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+            transition: 0.3s cubic-bezier(0.2, 0, 0, 1);
+        }
+
+        .cta-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(255,255,255,0.1);
+        }
+
+        /* Hamburger Menu Icon */
+        .menu-icon {
+            cursor: pointer;
+            width: 30px;
+            height: 30px;
             display: flex;
             flex-direction: column;
+            justify-content: center;
+            gap: 6px;
+        }
+
+        .menu-icon span {
+            display: block;
+            width: 100%;
+            height: 2px;
+            background: var(--text-main);
+            border-radius: 2px;
+            transition: 0.3s;
+        }
+
+        /* --- SIDEBAR --- */
+        #sidebar {
+            position: fixed;
+            top: 0;
+            right: -300px;
+            width: 300px;
+            height: 100%;
+            background: var(--sidebar-bg);
+            z-index: 3000;
+            transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            padding: 80px 30px;
+            box-sizing: border-box;
+            border-left: 1px solid var(--border-glass);
+        }
+
+        #sidebar.open { right: 0; }
+
+        .sidebar-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.6);
+            backdrop-filter: blur(4px);
+            display: none;
+            z-index: 2500;
+        }
+
+        .sidebar-link {
+            display: block;
+            color: var(--text-main);
+            text-decoration: none;
+            font-size: 18px;
+            margin-bottom: 25px;
+            font-weight: 500;
+            transition: 0.2s;
+        }
+
+        .sidebar-link:hover { color: var(--accent-green); }
+
+        /* --- HERO --- */
+        .hero {
+            position: relative;
+            height: 100vh;
+            display: flex;
             align-items: center;
             justify-content: center;
             text-align: center;
             overflow: hidden;
-            padding: 0 20px;
         }
 
-        #nexus-canvas {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 1;
-            opacity: 0.6;
-        }
+        #nexus-canvas { position: absolute; inset: 0; z-index: 1; }
 
         .hero-content {
             position: relative;
             z-index: 2;
-            max-width: 800px;
+            max-width: 900px;
+            padding: 20px;
         }
 
-        .gradient-text {
+        .gradient-title {
             background: linear-gradient(90deg, #4285f4, #9b72cb, #d96570, #4285f4);
             background-size: 200% auto;
             -webkit-background-clip: text;
-            background-clip: text;
             -webkit-text-fill-color: transparent;
-            font-size: clamp(40px, 8vw, 72px);
-            font-weight: 700;
-            margin-bottom: 20px;
-            animation: gradientFlow 5s linear infinite;
+            font-size: clamp(45px, 10vw, 85px);
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 25px;
+            animation: flow 5s linear infinite;
         }
 
-        @keyframes gradientFlow {
-            0% { background-position: 0% center; }
-            100% { background-position: 200% center; }
+        @keyframes flow { to { background-position: 200% center; } }
+
+        .sub-text {
+            font-size: clamp(18px, 4vw, 24px);
+            color: #aaa;
+            max-width: 700px;
+            margin: 0 auto 40px auto;
         }
 
-        .hero-subtitle {
-            font-size: 20px;
-            color: #a0a0a0;
-            margin-bottom: 40px;
-        }
-
-        .cta-button {
-            padding: 14px 32px;
-            background: white;
-            color: black;
-            border-radius: 30px;
-            text-decoration: none;
-            font-weight: 600;
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-
-        .cta-button:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 20px rgba(255,255,255,0.2);
-        }
-
-        /* --- INFO SECTIONS --- */
+        /* --- CONTENT SECTIONS --- */
         .section {
-            padding: 100px 10%;
-            max-width: 1200px;
+            padding: 100px 20px;
+            max-width: 1100px;
             margin: 0 auto;
         }
 
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            margin-top: 50px;
+        .section h2 {
+            font-size: 42px;
+            margin-bottom: 40px;
+            text-align: center;
         }
 
-        .card {
-            background: rgba(255, 255, 255, 0.03);
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+        }
+
+        .info-card {
+            background: rgba(255,255,255,0.03);
             border: 1px solid var(--border-glass);
             padding: 40px;
-            border-radius: 24px;
+            border-radius: 30px;
             transition: 0.3s;
         }
 
-        .card:hover {
-            background: rgba(255, 255, 255, 0.05);
+        .info-card:hover {
             border-color: var(--accent-green);
+            background: rgba(255,255,255,0.05);
         }
 
-        .card h3 {
-            color: var(--accent-green);
+        .info-card h3 {
             font-size: 24px;
-            margin-bottom: 15px;
+            color: var(--accent-green);
+            margin-top: 0;
         }
 
-        /* --- FAQ / ANMELDUNG SECTION --- */
-        .auth-info {
-            background: linear-gradient(180deg, transparent, rgba(66, 133, 244, 0.05));
-            text-align: center;
-        }
-
-        .highlight-box {
-            border-left: 4px solid var(--pill-text-blue);
-            background: rgba(138, 180, 248, 0.05);
-            padding: 20px;
-            border-radius: 0 12px 12px 0;
-            text-align: left;
-            margin: 20px 0;
+        .highlight-blue {
+            color: var(--pill-blue);
+            font-weight: 600;
         }
 
         footer {
-            padding: 40px;
+            padding: 60px 20px;
             text-align: center;
             border-top: 1px solid var(--border-glass);
-            color: #666;
-            font-size: 14px;
+            color: #555;
+            font-size: 13px;
         }
 
-        @media (max-width: 768px) {
-            .header-bar { padding: 0 20px; }
-            .section { padding: 60px 20px; }
+        @media (max-width: 600px) {
+            .brand-name { display: none; } /* Nur auf Mobile ausblenden wenn Platz fehlt */
         }
     </style>
 </head>
 <body>
 
     <header class="header-bar">
-        <div class="header-logo">
-            <div class="avatar-placeholder"></div>
-            NexusAI
+        <div class="header-left">
+            <img src="https://lh3.googleusercontent.com/d/1AdC4w34gy3DUWdnocBj57TSzgRyXNafM" alt="Logo" class="logo-round">
+            <span class="brand-name">NexusAI</span>
         </div>
-        <a href="#" class="cta-button" style="padding: 8px 20px; font-size: 14px;">App öffnen</a>
+        
+        <div class="header-right">
+            <a href="https://ki-assistent-alpha.vercel.app" class="cta-btn">App öffnen</a>
+            <div class="menu-icon" onclick="toggleSidebar()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
     </header>
+
+    <div class="sidebar-overlay" onclick="toggleSidebar()"></div>
+    <nav id="sidebar">
+        <a href="#about" class="sidebar-link" onclick="toggleSidebar()">Was ist Nexus?</a>
+        <a href="#auth" class="sidebar-link" onclick="toggleSidebar()">Warum Anmeldung?</a>
+        <a href="#vision" class="sidebar-link" onclick="toggleSidebar()">Vision & Ethik</a>
+        <a href="#privacy" class="sidebar-link" onclick="toggleSidebar()">Datenschutz</a>
+        <div style="margin-top: 40px; border-top: 1px solid var(--border-glass); padding-top: 20px;">
+            <a href="https://ki-assistent-alpha.vercel.app" class="sidebar-link" style="color: var(--accent-green);">Zur App →</a>
+        </div>
+    </nav>
 
     <section class="hero">
         <canvas id="nexus-canvas"></canvas>
         <div class="hero-content">
-            <h1 class="gradient-text">Deine Welt, intelligenter.</h1>
-            <p class="hero-subtitle">Erlebe die nächste Generation der KI. NexusAI unterstützt dich beim Schreiben, Planen, Lernen und Gestalten – alles an einem Ort.</p>
-            <a href="#details" class="cta-button">Mehr erfahren</a>
+            <h1 class="gradient-title">Intelligenz neu definiert.</h1>
+            <p class="sub-text">Mehr als nur ein Chatbot. NexusAI ist dein persönlicher Begleiter im digitalen Zeitalter.</p>
+            <a href="#about" class="cta-btn" style="padding: 15px 40px; font-size: 16px;">Entdecke Nexus</a>
         </div>
     </section>
 
-    <section class="section" id="details">
-        <h2 style="font-size: 36px; text-align: center;">Was kann NexusAI?</h2>
-        <div class="grid">
-            <div class="card">
-                <h3>Kreatives Schreiben</h3>
-                <p>Ob Kurzgeschichten, E-Mails oder komplexe Berichte – NexusAI findet die richtigen Worte und passt sich deinem Stil an.</p>
+    <section class="section" id="about">
+        <h2>Was ist NexusAI?</h2>
+        <div class="info-grid">
+            <div class="info-card">
+                <h3>Fortschrittliche Logik</h3>
+                <p>Nexus basiert auf modernsten Sprachmodellen, die nicht nur Texte generieren, sondern Zusammenhänge verstehen. Ob komplexe Programmierung oder tiefgründige Philosophie – Nexus denkt mit.</p>
             </div>
-            <div class="card">
-                <h3>Code & Entwicklung</h3>
-                <p>Generiere Python-Skripte, debugge Webseiten oder lerne neue Programmiersprachen durch interaktive Erklärungen.</p>
-            </div>
-            <div class="card">
-                <h3>Visionäre Bilder</h3>
-                <p>Mit der integrierten Bildgenerierung verwandelst du Beschreibungen in Sekundenschnelle in beeindruckende Kunstwerke.</p>
+            <div class="info-card">
+                <h3>Multimodale Power</h3>
+                <p>Nexus sieht die Welt. Mit der integrierten Bildgenerierung und Vision-Technologie kannst du Ideen visualisieren oder Dokumente analysieren lassen, indem du sie einfach hochlädst.</p>
             </div>
         </div>
     </section>
 
-    <section class="section auth-info">
-        <div style="max-width: 700px; margin: 0 auto;">
-            <h2 style="font-size: 36px;">Warum anmelden?</h2>
-            <p>NexusAI ist darauf ausgelegt, dein persönlicher Begleiter zu werden. Hier ist der Grund, warum ein Login den Unterschied macht:</p>
-            
-            <div class="highlight-box">
-                <strong>Plattformübergreifende Synchronisation:</strong> Deine Chats und generierten Bilder sind auf all deinen Geräten verfügbar.
+    <section class="section" id="auth" style="background: rgba(255,255,255,0.02); border-radius: 50px;">
+        <h2>Die Kraft der Anmeldung</h2>
+        <div class="info-grid">
+            <div class="info-card">
+                <h3>Dein digitales Gedächtnis</h3>
+                <p>Durch die Anmeldung mit Google wird Nexus personifiziert. Er erinnert sich an deine Präferenzen, deinen Schreibstil und frühere Projekte. <span class="highlight-blue">Lerne einmal, nutze überall.</span></p>
             </div>
-            <div class="highlight-box">
-                <strong>Lernende Intelligenz:</strong> NexusAI versteht mit der Zeit deine Präferenzen besser und liefert präzisere Antworten.
+            <div class="info-card">
+                <h3>Nahtlose Synchronisation</h3>
+                <p>Beginne einen Chat am Desktop und setze ihn unterwegs auf deinem Smartphone fort. Alle deine Daten werden sicher in der Cloud gespeichert und sind jederzeit abrufbar.</p>
             </div>
-            <div class="highlight-box">
-                <strong>Sicherheit & Verlauf:</strong> Deine Daten sind geschützt und dein Verlauf bleibt nur für dich zugänglich, damit du jederzeit dort weitermachen kannst, wo du aufgehört hast.
+            <div class="info-card">
+                <h3>Exklusive Features</h3>
+                <p>Registrierte Nutzer erhalten Zugriff auf den Live-Modus, die Bildgenerierung mit höherer Priorität und die Möglichkeit, eigene Wissensdatenbanken für die KI zu erstellen.</p>
             </div>
         </div>
+    </section>
+
+    <section class="section" id="vision">
+        <h2>Vision & Ethik</h2>
+        <p style="text-align: center; font-size: 20px; color: #888; max-width: 800px; margin: 0 auto;">
+            Wir glauben, dass KI den Menschen nicht ersetzen, sondern verstärken sollte. NexusAI wird nach strengen ethischen Richtlinien entwickelt, um Sicherheit, Transparenz und Nutzen für alle zu gewährleisten.
+        </p>
     </section>
 
     <footer>
-        &copy; 2026 NexusAI. Entwickelt für eine bessere Zukunft.<br>
-        <span style="font-size: 10px; opacity: 0.5;">NexusAI kann Fehler machen. Überprüfe wichtige Informationen.</span>
+        <p>© 2026 NexusAI Project | <a href="#" style="color: #888;">Impressum</a> | <a href="#" style="color: #888;">Datenschutz</a></p>
+        <p style="opacity: 0.4; margin-top: 10px;">NexusAI ist ein experimentelles KI-Modell. Antworten sollten auf Richtigkeit geprüft werden.</p>
     </footer>
 
     <script>
-        // --- DIE GLEICHE ANIMATION WIE IN DEINEM LOGIN ---
+        // Sidebar Logic
+        function toggleSidebar() {
+            const sb = document.getElementById('sidebar');
+            const overlay = document.querySelector('.sidebar-overlay');
+            const isOpen = sb.classList.contains('open');
+            
+            if(isOpen) {
+                sb.classList.remove('open');
+                overlay.style.display = 'none';
+            } else {
+                sb.classList.add('open');
+                overlay.style.display = 'block';
+            }
+        }
+
+        // Particle Animation
         const canvas = document.getElementById('nexus-canvas');
         const ctx = canvas.getContext('2d');
-        let animId;
         
-        function resizeCanvas() {
+        function resize() {
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
         }
-        window.addEventListener('resize', resizeCanvas);
+        window.addEventListener('resize', resize);
+        resize();
 
-        function startAnimation() {
-            resizeCanvas();
-            const particles = [];
-            const count = window.innerWidth < 600 ? 500 : 1200;
-            
-            for(let i=0; i<count; i++) {
-                let x, y;
-                do { 
-                    x = (Math.random() - 0.5) * 2; 
-                    y = (Math.random() - 0.5) * 2; 
-                } while (Math.abs(x) + Math.abs(y) > 1.2);
-
-                const angle = Math.atan2(y, x);
-                let hue = 220;
-                if(angle < -1.5) hue = 200; 
-                else if(angle < 0) hue = 160; 
-                else if(angle < 1.5) hue = 30; 
-                else hue = 280;
-
-                particles.push({
-                    x: x * (window.innerWidth / 2),
-                    y: y * (window.innerHeight / 2),
-                    color: `hsla(${hue}, 70%, 60%, ${Math.random() * 0.4})`,
-                    size: Math.random() * 1.8,
-                    offset: Math.random() * 10
-                });
-            }
-
-            let time = 0;
-            function loop() {
-                time += 0.002;
-                ctx.clearRect(0, 0, canvas.width, canvas.height);
-                ctx.save();
-                ctx.translate(canvas.width/2, canvas.height/2);
-                ctx.rotate(time * 0.05); 
-                
-                particles.forEach(p => {
-                    ctx.fillStyle = p.color;
-                    ctx.beginPath();
-                    const shimmer = Math.sin(time * 3 + p.offset);
-                    ctx.arc(p.x, p.y, p.size * (1 + shimmer * 0.2), 0, Math.PI*2);
-                    ctx.fill();
-                });
-                ctx.restore();
-                animId = requestAnimationFrame(loop);
-            }
-            loop();
+        const particles = [];
+        for(let i=0; i<800; i++) {
+            particles.push({
+                x: (Math.random() - 0.5) * 1.5,
+                y: (Math.random() - 0.5) * 1.5,
+                s: Math.random() * 2,
+                o: Math.random() * 10
+            });
         }
 
-        startAnimation();
+        let time = 0;
+        function animate() {
+            time += 0.003;
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.save();
+            ctx.translate(canvas.width/2, canvas.height/2);
+            ctx.rotate(time * 0.1);
+
+            particles.forEach(p => {
+                const pulse = Math.sin(time * 2 + p.o) * 0.5 + 0.5;
+                ctx.fillStyle = `rgba(138, 180, 248, ${0.1 + pulse * 0.3})`;
+                ctx.beginPath();
+                ctx.arc(p.x * (canvas.width * 0.6), p.y * (canvas.height * 0.6), p.s, 0, Math.PI*2);
+                ctx.fill();
+            });
+            ctx.restore();
+            requestAnimationFrame(animate);
+        }
+        animate();
     </script>
 </body>
 </html>
