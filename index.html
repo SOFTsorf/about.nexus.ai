@@ -62,13 +62,15 @@
             gap: 12px;
         }
 
-        /* HIER GEÄNDERT: Rechteckig abgerundet statt rund */
+        /* FIX: Logo-Anpassung */
         .logo-rectangular {
-            width: 40px;
-            height: 40px;
-            border-radius: 10px; /* 10px macht es eckig mit weichen Kanten */
-            object-fit: cover;
+            height: 40px; /* Feste Höhe */
+            width: auto;   /* Breite passt sich automatisch dem Inhalt an */
+            min-width: 40px; 
+            border-radius: 10px;
+            object-fit: contain; /* Zeigt das ganze Bild ohne Abschneiden */
             border: 1px solid var(--border-glass);
+            background: rgba(255,255,255,0.05); /* Leichter Hintergrund, falls das Logo transparent ist */
         }
 
         .brand-name {
@@ -257,7 +259,7 @@
 
     <header class="header-bar">
         <div class="header-left">
-            <img src="https://lh3.googleusercontent.com/d/1AdC4w34gy3DUWdnocBj57TSzgRyXNafM" alt="Logo" class="logo-rectangular">
+            <img src="https://lh3.googleusercontent.com/d/1AdC4w34gy3DUWdnocBj57TSzgRyXNafM" alt="NexusAI Logo" class="logo-rectangular">
             <span class="brand-name">NexusAI</span>
         </div>
         
@@ -434,7 +436,6 @@
             requestAnimationFrame(animate);
         }
         animate();
-        // Initial reveal check
         reveal();
     </script>
 </body>
