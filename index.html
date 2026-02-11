@@ -25,6 +25,18 @@
             overflow-x: hidden;
         }
 
+        /* --- SCROLL ANIMATION CLASSES --- */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 1.2s cubic-bezier(0.17, 0.55, 0.55, 1);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
         /* --- HEADER --- */
         .header-bar {
             position: fixed;
@@ -86,7 +98,6 @@
             box-shadow: 0 5px 15px rgba(255,255,255,0.1);
         }
 
-        /* Hamburger Menu Icon */
         .menu-icon {
             cursor: pointer;
             width: 30px;
@@ -237,7 +248,7 @@
         }
 
         @media (max-width: 600px) {
-            .brand-name { display: none; } /* Nur auf Mobile ausblenden wenn Platz fehlt */
+            .brand-name { display: none; }
         }
     </style>
 </head>
@@ -262,9 +273,10 @@
     <div class="sidebar-overlay" onclick="toggleSidebar()"></div>
     <nav id="sidebar">
         <a href="#about" class="sidebar-link" onclick="toggleSidebar()">Was ist Nexus?</a>
+        <a href="#tech" class="sidebar-link" onclick="toggleSidebar()">Technologie</a>
         <a href="#auth" class="sidebar-link" onclick="toggleSidebar()">Warum Anmeldung?</a>
         <a href="#vision" class="sidebar-link" onclick="toggleSidebar()">Vision & Ethik</a>
-        <a href="#privacy" class="sidebar-link" onclick="toggleSidebar()">Datenschutz</a>
+        <a href="https://nexusinfo.vercel.app/" class="sidebar-link" onclick="toggleSidebar()">Datenschutz</a>
         <div style="margin-top: 40px; border-top: 1px solid var(--border-glass); padding-top: 20px;">
             <a href="https://ki-assistent-alpha.vercel.app" class="sidebar-link" style="color: var(--accent-green);">Zur App →</a>
         </div>
@@ -279,7 +291,7 @@
         </div>
     </section>
 
-    <section class="section" id="about">
+    <section class="section reveal" id="about">
         <h2>Was ist NexusAI?</h2>
         <div class="info-grid">
             <div class="info-card">
@@ -293,7 +305,25 @@
         </div>
     </section>
 
-    <section class="section" id="auth" style="background: rgba(255,255,255,0.02); border-radius: 50px;">
+    <section class="section reveal" id="tech">
+        <h2>Mehr über die KI</h2>
+        <div class="info-grid">
+            <div class="info-card">
+                <h3>Echtzeit-Verarbeitung</h3>
+                <p>Im Gegensatz zu herkömmlichen Systemen kann NexusAI Informationen in Millisekunden verarbeiten und komplexe Aufgaben durch "Chain-of-Thought" Reasoning lösen. Das bedeutet, die KI plant ihre Antwort Schritt für Schritt.</p>
+            </div>
+            <div class="info-card">
+                <h3>Kreative Synergie</h3>
+                <p>Die KI nutzt neuronale Netzwerke, um zwischen verschiedenen Fachgebieten Brücken zu schlagen. Sie kann Musiktheorie mit Quantenphysik verbinden oder Code schreiben, der wie Poesie strukturiert ist.</p>
+            </div>
+            <div class="info-card">
+                <h3>Adaptive Lernfähigkeit</h3>
+                <p>Nexus passt sich durch kontextuelles Verständnis an deine Ausdrucksweise an. Je mehr du interagierst, desto präziser werden die Nuancen in den Antworten und Vorschlägen der KI.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="section reveal" id="auth" style="background: rgba(255,255,255,0.02); border-radius: 50px;">
         <h2>Die Kraft der Anmeldung</h2>
         <div class="info-grid">
             <div class="info-card">
@@ -304,14 +334,10 @@
                 <h3>Nahtlose Synchronisation</h3>
                 <p>Beginne einen Chat am Desktop und setze ihn unterwegs auf deinem Smartphone fort. Alle deine Daten werden sicher in der Cloud gespeichert und sind jederzeit abrufbar.</p>
             </div>
-            <div class="info-card">
-                <h3>Exklusive Features</h3>
-                <p>Registrierte Nutzer erhalten Zugriff auf den Live-Modus, die Bildgenerierung mit höherer Priorität und die Möglichkeit, eigene Wissensdatenbanken für die KI zu erstellen.</p>
-            </div>
         </div>
     </section>
 
-    <section class="section" id="vision">
+    <section class="section reveal" id="vision">
         <h2>Vision & Ethik</h2>
         <p style="text-align: center; font-size: 20px; color: #888; max-width: 800px; margin: 0 auto;">
             Wir glauben, dass KI den Menschen nicht ersetzen, sondern verstärken sollte. NexusAI wird nach strengen ethischen Richtlinien entwickelt, um Sicherheit, Transparenz und Nutzen für alle zu gewährleisten.
@@ -319,11 +345,27 @@
     </section>
 
     <footer>
-        <p>© 2026 NexusAI Project | <a href="#" style="color: #888;">Impressum</a> | <a href="#" style="color: #888;">Datenschutz</a></p>
+        <p>© 2026 NexusAI Project | <a href="https://nexusinfo.vercel.app/" style="color: #888;">Datenschutz</a></p>
         <p style="opacity: 0.4; margin-top: 10px;">NexusAI ist ein experimentelles KI-Modell. Antworten sollten auf Richtigkeit geprüft werden.</p>
     </footer>
 
     <script>
+        // Reveal Animation on Scroll
+        function reveal() {
+            var reveals = document.querySelectorAll(".reveal");
+            for (var i = 0; i < reveals.length; i++) {
+                var windowHeight = window.innerHeight;
+                var elementTop = reveals[i].getBoundingClientRect().top;
+                var elementVisible = 150;
+                if (elementTop < windowHeight - elementVisible) {
+                    reveals[i].classList.add("active");
+                } else {
+                    reveals[i].classList.remove("active");
+                }
+            }
+        }
+        window.addEventListener("scroll", reveal);
+
         // Sidebar Logic
         function toggleSidebar() {
             const sb = document.getElementById('sidebar');
@@ -379,6 +421,8 @@
             requestAnimationFrame(animate);
         }
         animate();
+        // Initial reveal check
+        reveal();
     </script>
 </body>
 </html>
