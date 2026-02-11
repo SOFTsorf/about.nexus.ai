@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Über NexusAI - Eine neue Ära der Intelligenz</title>
+    <style>
+        :root {
+            --accent-green: #00ff88;
+            --bg-dark: #0b0b0c;
+            --text-main: #e8e8e8;
+            --border-glass: rgba(255, 255, 255, 0.1);
+            --header-bg: rgba(11, 11, 12, 0.8);
+            --pill-text-blue: #8ab4f8;
+            --glow-gradient: linear-gradient(135deg, #4285f4, #9c27b0);
+        }
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            background: var(--bg-dark);
+            color: var(--text-main);
+            font-family: -apple-system, system-ui, sans-serif;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* --- HEADER (Wie in deiner App) --- */
+        .header-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 70px;
+            background: var(--header-bg);
+            backdrop-filter: blur(30px);
+            border-bottom: 1px solid var(--border-glass);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 40px;
+            z-index: 1000;
+            box-sizing: border-box;
+        }
+
+        .header-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: bold;
+            font-size: 20px;
+            letter-spacing: 1px;
+        }
+
+        .avatar-placeholder {
+            height: 38px;
+            width: 38px;
+            border-radius: 50%;
+            border: 1px solid var(--border-glass);
+            background: url('https://lh3.googleusercontent.com/d/1AdC4w34gy3DUWdnocBj57TSzgRyXNafM') center/cover;
+        }
+
+        /* --- HERO SECTION MIT PARTIKELN --- */
+        .hero {
+            position: relative;
+            height: 90vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            overflow: hidden;
+            padding: 0 20px;
+        }
+
+        #nexus-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            opacity: 0.6;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+        }
+
+        .gradient-text {
+            background: linear-gradient(90deg, #4285f4, #9b72cb, #d96570, #4285f4);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-size: clamp(40px, 8vw, 72px);
+            font-weight: 700;
+            margin-bottom: 20px;
+            animation: gradientFlow 5s linear infinite;
+        }
+
+        @keyframes gradientFlow {
+            0% { background-position: 0% center; }
+            100% { background-position: 200% center; }
+        }
+
+        .hero-subtitle {
+            font-size: 20px;
+            color: #a0a0a0;
+            margin-bottom: 40px;
+        }
+
+        .cta-button {
+            padding: 14px 32px;
+            background: white;
+            color: black;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .cta-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(255,255,255,0.2);
+        }
+
+        /* --- INFO SECTIONS --- */
+        .section {
+            padding: 100px 10%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border-glass);
+            padding: 40px;
+            border-radius: 24px;
+            transition: 0.3s;
+        }
+
+        .card:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: var(--accent-green);
+        }
+
+        .card h3 {
+            color: var(--accent-green);
+            font-size: 24px;
+            margin-bottom: 15px;
+        }
+
+        /* --- FAQ / ANMELDUNG SECTION --- */
+        .auth-info {
+            background: linear-gradient(180deg, transparent, rgba(66, 133, 244, 0.05));
+            text-align: center;
+        }
+
+        .highlight-box {
+            border-left: 4px solid var(--pill-text-blue);
+            background: rgba(138, 180, 248, 0.05);
+            padding: 20px;
+            border-radius: 0 12px 12px 0;
+            text-align: left;
+            margin: 20px 0;
+        }
+
+        footer {
+            padding: 40px;
+            text-align: center;
+            border-top: 1px solid var(--border-glass);
+            color: #666;
+            font-size: 14px;
+        }
+
+        @media (max-width: 768px) {
+            .header-bar { padding: 0 20px; }
+            .section { padding: 60px 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="header-bar">
+        <div class="header-logo">
+            <div class="avatar-placeholder"></div>
+            NexusAI
+        </div>
+        <a href="#" class="cta-button" style="padding: 8px 20px; font-size: 14px;">App öffnen</a>
+    </header>
+
+    <section class="hero">
+        <canvas id="nexus-canvas"></canvas>
+        <div class="hero-content">
+            <h1 class="gradient-text">Deine Welt, intelligenter.</h1>
+            <p class="hero-subtitle">Erlebe die nächste Generation der KI. NexusAI unterstützt dich beim Schreiben, Planen, Lernen und Gestalten – alles an einem Ort.</p>
+            <a href="#details" class="cta-button">Mehr erfahren</a>
+        </div>
+    </section>
+
+    <section class="section" id="details">
+        <h2 style="font-size: 36px; text-align: center;">Was kann NexusAI?</h2>
+        <div class="grid">
+            <div class="card">
+                <h3>Kreatives Schreiben</h3>
+                <p>Ob Kurzgeschichten, E-Mails oder komplexe Berichte – NexusAI findet die richtigen Worte und passt sich deinem Stil an.</p>
+            </div>
+            <div class="card">
+                <h3>Code & Entwicklung</h3>
+                <p>Generiere Python-Skripte, debugge Webseiten oder lerne neue Programmiersprachen durch interaktive Erklärungen.</p>
+            </div>
+            <div class="card">
+                <h3>Visionäre Bilder</h3>
+                <p>Mit der integrierten Bildgenerierung verwandelst du Beschreibungen in Sekundenschnelle in beeindruckende Kunstwerke.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="section auth-info">
+        <div style="max-width: 700px; margin: 0 auto;">
+            <h2 style="font-size: 36px;">Warum anmelden?</h2>
+            <p>NexusAI ist darauf ausgelegt, dein persönlicher Begleiter zu werden. Hier ist der Grund, warum ein Login den Unterschied macht:</p>
+            
+            <div class="highlight-box">
+                <strong>Plattformübergreifende Synchronisation:</strong> Deine Chats und generierten Bilder sind auf all deinen Geräten verfügbar.
+            </div>
+            <div class="highlight-box">
+                <strong>Lernende Intelligenz:</strong> NexusAI versteht mit der Zeit deine Präferenzen besser und liefert präzisere Antworten.
+            </div>
+            <div class="highlight-box">
+                <strong>Sicherheit & Verlauf:</strong> Deine Daten sind geschützt und dein Verlauf bleibt nur für dich zugänglich, damit du jederzeit dort weitermachen kannst, wo du aufgehört hast.
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        &copy; 2026 NexusAI. Entwickelt für eine bessere Zukunft.<br>
+        <span style="font-size: 10px; opacity: 0.5;">NexusAI kann Fehler machen. Überprüfe wichtige Informationen.</span>
+    </footer>
+
+    <script>
+        // --- DIE GLEICHE ANIMATION WIE IN DEINEM LOGIN ---
+        const canvas = document.getElementById('nexus-canvas');
+        const ctx = canvas.getContext('2d');
+        let animId;
+        
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+
+        function startAnimation() {
+            resizeCanvas();
+            const particles = [];
+            const count = window.innerWidth < 600 ? 500 : 1200;
+            
+            for(let i=0; i<count; i++) {
+                let x, y;
+                do { 
+                    x = (Math.random() - 0.5) * 2; 
+                    y = (Math.random() - 0.5) * 2; 
+                } while (Math.abs(x) + Math.abs(y) > 1.2);
+
+                const angle = Math.atan2(y, x);
+                let hue = 220;
+                if(angle < -1.5) hue = 200; 
+                else if(angle < 0) hue = 160; 
+                else if(angle < 1.5) hue = 30; 
+                else hue = 280;
+
+                particles.push({
+                    x: x * (window.innerWidth / 2),
+                    y: y * (window.innerHeight / 2),
+                    color: `hsla(${hue}, 70%, 60%, ${Math.random() * 0.4})`,
+                    size: Math.random() * 1.8,
+                    offset: Math.random() * 10
+                });
+            }
+
+            let time = 0;
+            function loop() {
+                time += 0.002;
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                ctx.save();
+                ctx.translate(canvas.width/2, canvas.height/2);
+                ctx.rotate(time * 0.05); 
+                
+                particles.forEach(p => {
+                    ctx.fillStyle = p.color;
+                    ctx.beginPath();
+                    const shimmer = Math.sin(time * 3 + p.offset);
+                    ctx.arc(p.x, p.y, p.size * (1 + shimmer * 0.2), 0, Math.PI*2);
+                    ctx.fill();
+                });
+                ctx.restore();
+                animId = requestAnimationFrame(loop);
+            }
+            loop();
+        }
+
+        startAnimation();
+    </script>
+</body>
+</html>
